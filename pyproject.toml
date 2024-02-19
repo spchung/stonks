@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "indicators"
+version = "0.1.0"
+description = ""
+authors = ["stephen <chung25stephen@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+ta-lib = "^0.4.28"
+pandas = "^2.2.0"
+plotly = "^5.19.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
