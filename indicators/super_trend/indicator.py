@@ -3,17 +3,17 @@ import numpy as np
 import pandas as pd
 import numpy as np
 
-def super_trend(df):
+def super_trend(df, period=10, multiplier=3):
     '''
         Upper line = (high + low) / 2 + multiplier x ATR
         Lower Line = (high + low) / 2 – multiplier x ATR
     '''
-    mul = 3
+    mul = multiplier
     ATR = talib.ATR(
         df['High'].to_numpy(), 
         df['Low'].to_numpy(), 
         df['Close'].to_numpy(), 
-    timeperiod=10)
+    timeperiod=period)
 
     final_upperband = upperband = (df['High'] + df['Low']) / 2 + mul * ATR
     final_lowerband = lowerband = (df['High'] + df['Low']) / 2 - mul * ATR
@@ -42,7 +42,7 @@ def super_trend(df):
             final_lowerband[curr] = np.nan
 
     return pd.DataFrame({
-        'supertrnd': supertrend,
-        'upper': final_upperband,
-        'lower': final_lowerband,
+        'Super Trend': supertrend,
+        'Upper Bound': final_upperband,
+        'Lower Bound': final_lowerband,
     }, index = df.index)
