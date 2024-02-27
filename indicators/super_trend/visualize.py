@@ -1,9 +1,10 @@
 import pandas as pd
 import plotly.graph_objects as go
 from indicators.super_trend.indicator import super_trend
+from data.get_data import get_data
 
-def visual_super_trend(file_src:str, last_n_days:int=100):
-    df = pd.read_csv(file_src)
+def visual_super_trend(symbol:str, last_n_days:int=100):
+    df = get_data(symbol)
     super_df = super_trend(df)
     res_df = df.join(super_df)
     if last_n_days < res_df.shape[0]:

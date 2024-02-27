@@ -10,7 +10,11 @@ python = "^3.12"
 ta-lib = "^0.4.28"
 pandas = "^2.2.0"
 plotly = "^5.19.0"
+alpaca-py = "^0.16.0"
 
+
+[tool.poetry.group.dev.dependencies]
+pandas = "^2.2.1"
 
 [build-system]
 requires = ["poetry-core"]
