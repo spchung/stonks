@@ -5,19 +5,31 @@ from candle import get_candles_pattern, visualize_candle_patterns
 from alpaca_util import get_crypto_historical_data
 from alpaca.data.timeframe import TimeFrame
 from datetime import datetime
+from candlestick import candlestick
 
 
 def main():
     df = get_crypto_historical_data(
         ["BTC/USD"],
-        timeframe=TimeFrame.Hour,
-        start=datetime(2024,2,22),
-        end=datetime(2024,2,27)
+        timeframe=TimeFrame.Day,
+        start=datetime(2024,1,1),
+        end=datetime(2024,2,28)
     )
 
+    patterns_dict = {
+        "InvHammer": candlestick.inverted_hammer,
+        "BullEngulf": candlestick.bullish_engulfing,
+        "BearEngulf": candlestick.bearish_engulfing,
+        "MorningStar": candlestick.morning_star,
+        "Hammer": candlestick.hammer,
+    }
+
     df.rename(columns={'index':'Date'}, inplace=True)
-    df_with_candles = get_candles_pattern(df)
-    visualize_candle_patterns(df_with_candles)
+
+    for pattern, func in patterns_dict.items():
+        df = func(df, target=pattern)
+    
+    
 
 if __name__ == "__main__":
     main()
